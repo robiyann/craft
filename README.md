@@ -42,13 +42,6 @@ cd craft
 pip install -r requirements.txt
 ```
 
-**Isi file `requirements.txt`:**
-
-```
-requests
-rich
-```
-
 ---
 
 ## ⚙️ Konfigurasi `config.json`
