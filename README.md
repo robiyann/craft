@@ -204,3 +204,4 @@ python bot.py
 ---
 
 > Dibuat dengan 💜 oleh Robi x Willyam | `LYAMRIZZ INSIDER`
+> refresh token automatically and fix bug by ZeroDevID
