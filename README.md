@@ -1,71 +1,48 @@
+# 💠 Craft World Bot - LYAMRIZZ INSIDER
 
-# 🧠 CraftWorld Auto Bot — Token Version
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
+![Status](https://img.shields.io/badge/status-stable-success)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Made By](https://img.shields.io/badge/created%20by-ZeroDev%20%26%20Lyamrizz-magenta)
 
-Bot otomatis untuk game [Craft World](https://preview.craft-world.gg) yang memanfaatkan **JWT token** dari `token.txt` dan konfigurasi per akun dari `config.json`.
+Bot otomatis untuk mengelola aktivitas akun di [Craft World](https://preview.craft-world.gg), mendukung banyak akun, auto-sync GraphQL, dan otomatisasi aksi seperti:
 
-> ✅ Tidak menggunakan private key  
-> 🔐 Aman dan efisien untuk multi-akun  
-> ⚙️ Mendukung upgrade otomatis, start pabrik, dan klaim area  
+- ✅ **Claim Area**
+- 🏭 **Start & Upgrade Factory**
+- ⛏️ **Claim, Start & Upgrade Mine**
+- 🔄 **Auto Sync Data dari GraphQL ke config**
 
----
-
-## ✨ Fitur
-
-- ✅ Multi-akun: jalan otomatis berdasarkan `token.txt`
-- 🔁 Loop otomatis: aksi setiap 30 detik
-- 🧱 Auto `START_MINE`, `CLAIM_MINE`, `UPGRADE`, `START_FACTORY`, dan `CLAIM_AREA`
-- 📄 Konfigurasi fleksibel via `config.json`
-- 📊 Tampilan info akun dengan format tabel
+> Dibuat dan dikembangkan oleh **ZeroDev** dan **Lyamrizz**  
+> Untuk keperluan otomatisasi personal game *Craft World (preview.craft-world.gg)*
 
 ---
 
-## 📁 Struktur File
+## 🔧 Fitur Utama
 
-```
-craftworld/
-├── bot.py              # Bot utama
-├── token.txt           # Daftar JWT token
-├── config.json         # Konfigurasi per akun
-├── requirements.txt    # Dependensi Python
-└── README.md           # Dokumentasi ini
-```
+- 🔁 **Auto loop setiap 30 detik**
+- 🔑 **Auto fetch token via Firebase `refresh_token`**
+- 🧠 **Intelligent GraphQL sync**: data `mine`, `factory`, dan `area` diambil dan disimpan otomatis
+- 👥 **Multi-akun support** (hingga akun tak terbatas sesuai config)
+- 🖥️ **CLI dengan UI Rich (warna, panel, ikon emoji)**
 
 ---
 
-## 🧰 Persiapan
+## 🚀 Instalasi
 
-### 1. Install Python
-
-Pastikan kamu sudah install **Python 3.10+**
-
----
-
-### 2. Install Virtual Environment (Opsional)
+### 1. Clone repository
 
 ```bash
-python -m venv .venv
+git clone https://github.com/robiyann/craft.git
+cd craft
 ```
 
-Aktifkan:
-
-- **Windows**:
-  ```bash
-  .venv\Scripts\activate
-  ```
-- **Mac/Linux**:
-  ```bash
-  source .venv/bin/activate
-  ```
-
----
-
-### 3. Install Dependensi
+### 2. Install dependensi Python
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Contoh isi `requirements.txt`:
+**Isi file `requirements.txt`:**
 
 ```
 requests
@@ -74,112 +51,33 @@ rich
 
 ---
 
-### 4. Isi File `token.txt`
+## ⚙️ Konfigurasi `config.json`
 
-Masukkan JWT token (tanpa awalan `jwt_`) **satu baris per akun**, contoh:
-
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
----
-
-### 5. Isi File `config.json`
-
-Contoh `config.json` untuk 2 akun:
+Buat file `config.json` di folder yang sama dengan `bot.py`. Contoh untuk 5 akun:
 
 ```json
 {
-  "mineId_1": "MINE_ID_AKUN1",
-  "factoryMud_1": ["FACTORY_ID_1"],
-  "factoryClay_1": ["FACTORY_ID_2"],
-  "factorySand_1": ["FACTORY_ID_3"],
-  "areaId_1": "AREA_MUD_ID",
-  "areaClay_1": "AREA_CLAY_ID",
-  "areaSand_1": "AREA_SAND_ID",
-  "upgradeMine_1": true,
-  "upgradeFactoryMud_1": true,
-  "upgradeFactoryClay_1": true,
-  "upgradeFactorySand_1": true,
+  "apiKey_1": "API_KEY_AKUN_1",
+  "refresh_token_1": "REFRESH_TOKEN_AKUN_1",
 
-  "mineId_2": "MINE_ID_AKUN2",
-  "factoryMud_2": ["FACTORY_ID_4"],
-  "factoryClay_2": ["FACTORY_ID_5"],
-  "factorySand_2": ["FACTORY_ID_6"],
-  "areaId_2": "AREA_MUD_ID_2",
-  "areaClay_2": "AREA_CLAY_ID_2",
-  "areaSand_2": "AREA_SAND_ID_2",
-  "upgradeMine_2": false,
-  "upgradeFactoryMud_2": false,
-  "upgradeFactoryClay_2": false,
-  "upgradeFactorySand_2": false
+  "apiKey_2": "API_KEY_AKUN_2",
+  "refresh_token_2": "REFRESH_TOKEN_AKUN_2",
+
+  "apiKey_3": "API_KEY_AKUN_3",
+  "refresh_token_3": "REFRESH_TOKEN_AKUN_3",
+
+  "apiKey_4": "API_KEY_AKUN_4",
+  "refresh_token_4": "REFRESH_TOKEN_AKUN_4",
+
+  "apiKey_5": "API_KEY_AKUN_5",
+  "refresh_token_5": "REFRESH_TOKEN_AKUN_5"
 }
 ```
 
----
+📌 `refresh_token` dan `apiKey` bisa kamu ambil melalui DevTools browser saat login Craft World.
 
-## 📌 Cara Mendapatkan `mineId`, `factoryId`, dan `areaId`
-
-### 1. Buka [Craft World](https://preview.craft-world.gg) di browser  
-### 2. Tekan `F12` untuk membuka DevTools → Buka tab `Network`  
-### 3. Klik request `ingest` dan lihat di tab `Payload`
-
----
-
-### 🪓 mineId
-
-Gunakan untuk `START_MINE`
-
-```json
-{
-  "actionType": "START_MINE",
-  "payload": {
-    "mineId": "0684d501-b8fd-7f3b-8000-5eb5a929a01f"
-  }
-}
-```
-
-📸 Contoh:  
-![mineId](https://i.imgur.com/Pa2TgCA.png)
-
----
-
-### 🏭 factoryId
-
-Gunakan untuk `START_FACTORY`
-
-```json
-{
-  "actionType": "START_FACTORY",
-  "payload": {
-    "factoryId": "0684fe2c-d2a7-7ef9-8000-4b4b00926cf8"
-  }
-}
-```
-
-📸 Contoh:  
-![factoryId](https://i.imgur.com/f4ZnEQc.png)
-
-
----
-
-### 🌍 areaId
-
-Gunakan untuk `CLAIM_AREA`
-
-```json
-{
-  "actionType": "CLAIM_AREA",
-  "payload": {
-    "areaId": "0684d501-1c8b-7439-8000-b0d609cc70db",
-    "amountToClaim": 1258
-  }
-}
-```
-
-📸 Contoh:  
-![areaId](https://i.imgur.com/Lk5bx4T.png)
+saat game dijalankan, pencet f12 atau devtools, cari dibagian application - indexedDB - firebaselocalstoragedb -firebaselocalstorage - lalu copy bagian refresh token dan apikey di bagian value nya
+![image](https://github.com/user-attachments/assets/57cc7fbc-c92f-490d-b74c-aea5645dac17)
 
 ---
 
@@ -189,19 +87,48 @@ Gunakan untuk `CLAIM_AREA`
 python craftworld.py
 ```
 
-- Bot akan memulai dari `START_MINE`, lalu lanjut ke `START_FACTORY`, `CLAIM_AREA`, dan `UPGRADE` jika diaktifkan.
-- Siklus akan berjalan **setiap 30 detik**.
-- Informasi akun akan ditampilkan setelah setiap aksi.
+✅ Bot akan:
+- Ambil data terbaru dari GraphQL
+- Update otomatis `mineIds`, `areaIds`, `factoryIds` di `config.json`
+- Eksekusi aksi:
+  - Claim semua area
+  - Start + upgrade semua factory
+  - Claim, upgrade, dan start semua mine
+
+🕒 Bot akan melakukan loop otomatis setiap 30 detik.
 
 ---
 
-## ⚠️ Catatan
+## 🧩 Troubleshooting
 
-- Token kadaluarsa dapat menyebabkan error 401. Perbarui token jika ini terjadi.
-- Jangan bagikan file `token.txt` ke siapa pun.
-- Gunakan `factoryMud`, `factoryClay`, dan `factorySand` sebagai list meskipun hanya 1 ID.
+| Masalah                                   | Solusi                                                                 |
+|-------------------------------------------|------------------------------------------------------------------------|
+| `401 Unauthorized`                        | Periksa `refresh_token` dan `apiKey` sudah valid dan tidak expired     |
+| `config.json` tidak terbaca               | Pastikan file valid JSON dan ada di direktori yang sama dengan `bot.py`|
+| Tidak ada aksi berjalan                   | Tunggu 30 detik; pastikan ID-ID tersinkron dari GraphQL               |
 
 ---
 
-> Dibuat dengan 💜 oleh Robi x Willyam | `LYAMRIZZ INSIDER`
-> refresh token automatically and fix bug by ZeroDevID
+## 📦 Struktur Direktori
+
+```
+craft/
+├── bot.py              # Main bot script
+├── config.json         # Konfigurasi akun-akun
+├── requirements.txt    # Dependensi Python
+└── README.md           # Dokumentasi
+```
+
+---
+
+## 👨‍💻 Pengembang
+
+> Dibuat dan dikembangkan oleh:
+- 🧠 **ZeroDev**
+- 🔮 **Lyamrizz**
+
+---
+
+## 📃 Lisensi
+
+Proyek ini menggunakan lisensi **MIT**. Bebas digunakan dan dimodifikasi untuk keperluan pribadi.
